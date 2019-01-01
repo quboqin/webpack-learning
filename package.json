@@ -1,0 +1,16 @@
+{
+  "name": "webpack-learning",
+  "version": "0.1.0",
+  "description": "a playground for learning Webpack and Nodejs ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack",
+    "nodejs",
+    "javascript"
+  ],
+  "author": "Qubo Qin",
+  "license": "ISC"
+}
