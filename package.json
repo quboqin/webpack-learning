@@ -12,5 +12,8 @@
     "javascript"
   ],
   "author": "Qubo Qin",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "chalk": "^2.4.1"
+  }
 }
