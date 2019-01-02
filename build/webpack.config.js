@@ -1,12 +1,12 @@
 const path = require('path'),
-      webpack = require('webpack'),
       CleanWebpackPlugin = require('clean-webpack-plugin'),
       HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const env = process.env.NODE_ENV      
+
 const config = {
-  mode: 'development',
-  // absolute path for project root
-  context: path.resolve(__dirname, '..'),
+  // absolute path for project root, the default one is process.cwd()
+  // context: path.resolve(__dirname, '..'),
 
   entry: {
     // relative path declaration
@@ -14,8 +14,12 @@ const config = {
   },
 
   output: {
-    // absolute path declaration
+    // One of the below
+    // publicPath: '/notdist/',
     // publicPath: '/dist/',
+    // publicPath: 'dist/',
+    publicPath: env === 'development' ? '' : 'https://cdn.example.com/assets/',
+
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].bundle.js'
   },
@@ -42,7 +46,6 @@ const config = {
       // sass-loader with sourceMap activated
       {
         test: /\.scss$/,
-        include: [path.resolve(__dirname, '../assets', 'scss')],
         use: [
           {
             loader: 'style-loader'
@@ -65,7 +68,8 @@ const config = {
       { 
         test: /\.(jpg|png|gif|svg)$/, 
         use: [ 
-          { loader: 'file-loader', 
+          { 
+            loader: 'file-loader', 
             options: { 
               name: '[name].[ext]', 
               outputPath: './assets/media/' 
@@ -82,7 +86,9 @@ const config = {
   },
   plugins: [
     // cleaning up only 'dist' folder
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(['dist'], {
+      root: path.resolve(__dirname, '../'),
+    }),
     new HtmlWebpackPlugin({
       template: './assets/index.html',
       filename: './index.html'
@@ -91,9 +97,7 @@ const config = {
   devServer: {
     // static files served from here
     // publicPath: '/dist/',
-    contentBase: path.resolve(__dirname, "./dist/assets/media"),
-    compress: true,
-    // open app in localhost:2000
+
     port: 2000,
     stats: 'errors-only',
     open: true
