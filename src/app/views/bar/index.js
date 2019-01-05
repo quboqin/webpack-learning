@@ -12,9 +12,5 @@ export default class {
   mount(container) {
     document.title = 'bar'
     container.innerHTML = template
-    container.querySelector('.bar__gofoo').addEventListener('click', () => {
-      // 调用router.go方法加载 /foo 页面
-      g.router.go('/foo')
-    })
   }
 }

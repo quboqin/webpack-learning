@@ -7,10 +7,19 @@ const env = process.env.NODE_ENV
 const config = {
   // absolute path for project root, the default one is process.cwd()
   // context: path.resolve(__dirname, '..'),
+  mode: 'development',
 
   entry: {
     // relative path declaration
+    vender: './src/app/vendor.js',
     app: './src/app/app.js'
+  },
+
+  optimization: {
+    splitChunks: {
+      // include all types of chunks
+      chunks: 'all'
+    }
   },
 
   output: {
@@ -21,7 +30,8 @@ const config = {
     publicPath: env === 'development' ? '' : 'https://cdn.example.com/assets/',
 
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].bundle.js'
+    filename: '[name].[chunkhash].bundle.js',
+    chunkFilename: '[chunkhash].bundle.js'
   },
 
   module: {
@@ -34,7 +44,8 @@ const config = {
         use: { 
           loader: "babel-loader", 
           options: { 
-            presets: ["@babel/preset-env"]
+            presets: ["@babel/preset-env"],
+            plugins: ["@babel/plugin-syntax-dynamic-import"]
           }
         } 
       },
