@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue Playground</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+  <div>
+    Welcome to the Vue world!
+    <div id="app1" @click="bar">
+      {{ message1 }}
+      <input type="checkbox" id="checkbox" v-model="checked">
+      <label for="checkbox">{{ checked }}</label>
+    </div>
+    <div id="app2">
+      {{ message2 }}
+      <paragraph>paragraph</paragraph>
+      <p>Using mustaches: {{ rawHtml }}</p>
+      <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    </div>
+  </div>
+</body>
+<script>
+  var foo = () => {
+    this.value = 42
+    console.log('I am foo')
+  }
+
+  function barbar() {
+    console.log('I am barbar')
+  }
+
+  Vue.component('paragraph', {
+    template: '<div> <p>This is a todo</p> <slot></slot> </div>'
+  })
+  var app1 = new Vue({
+    el: '#app1',
+    data() {
+      return {
+        message1: 'Hello Vue!',
+        checked: true
+      }
+    },
+    methods: {
+      bar: () => {
+        foo ()
+        var f = new barbar()
+        console.log('I am bar')
+      }
+    }
+  })
+  var app2 = new Vue({
+      el: '#app2',
+      data() {
+        return {
+          message2: 'App 2',
+          rawHtml: '<span style="color:red">This should be red</span>'
+        }
+      }
+    })
+</script>
+</html>
